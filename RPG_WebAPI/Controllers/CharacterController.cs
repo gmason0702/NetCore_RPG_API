@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RPG_WebAPI.Dtos.Character;
@@ -9,20 +11,20 @@ using RPG_WebAPI.Models;
 using RPG_WebAPI.Services;
 
 namespace RPG_WebAPI.Controllers
-{
+{   
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class CharacterController : ControllerBase
     {
-
-        private static Character knight = new Character();
-
         private readonly ICharacterService _characterService;
 
         public CharacterController(ICharacterService characterService)
         {
             _characterService = characterService;
         }
+
+        //[AllowAnonymous] bypasses authorization
         [HttpGet("GetAll")]
         public async Task<IActionResult> Get()
         {

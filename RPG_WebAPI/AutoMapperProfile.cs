@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using RPG_WebAPI.Dtos.Character;
+using RPG_WebAPI.Dtos.Skill;
+using RPG_WebAPI.Dtos.Weapon;
 using RPG_WebAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,9 @@ namespace RPG_WebAPI
         {
             CreateMap<Character, GetCharacterDto>();
             CreateMap<AddCharacterDto, Character>();
+            CreateMap<Weapon, GetWeaponDto>();
+            CreateMap<Skill, GetSkillDto>();
+            CreateMap<Character, GetCharacterDto>().ForMember(dto => dto.Skills, c => c.MapFrom(c => c.CharacterSkills.Select(cs => cs.Skill)));
         }
     }
 }
